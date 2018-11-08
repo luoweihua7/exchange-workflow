@@ -28,14 +28,17 @@ def exchange(convert_type, money = 1):
 		match = re.search(r'\"(.*)\"', result)
 		if match:
 			arr = match.group(1).split(',')
-			rate = float(arr[8])
+			if len(arr) > 9:
+				rate = float(arr[8])
 
-			coin = convert_type[-3:]
-			icon = 'icons/%s.png' % coin.upper()
-			title = i18n.dic['SUCC_TITLE'] + str(rate * money)
-			subtitle = i18n.dic['SUCC_SUBTITLE'] + str(rate)
-			arg = convert_type.upper()
-			wf.add_item(title=title, subtitle=subtitle, icon=icon, arg=arg, valid=True)
+				coin = convert_type[-3:]
+				icon = 'icons/%s.png' % coin.upper()
+				title = i18n.dic['SUCC_TITLE'] + str(rate * money)
+				subtitle = i18n.dic['SUCC_SUBTITLE'] + str(rate)
+				arg = convert_type.upper()
+				wf.add_item(title=title, subtitle=subtitle, icon=icon, arg=arg, valid=True)
+			else:
+				wf.add_item(title=i18n.dic['ERR_RATE_TITLE'], subtitle=i18n.dic['ERR_RATE_SUBTITLE'], icon='icon.png')
 		else:
 			wf.add_item(title=i18n.dic['TITLE_DEFAULT'], subtitle=i18n.dic['SUBTITLE_DEFAULT'], icon='icon.png')
 	else:
