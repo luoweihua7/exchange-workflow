@@ -42,7 +42,7 @@ def exchange(convert_type, money = 1):
 		else:
 			wf.add_item(title=i18n.dic['TITLE_DEFAULT'], subtitle=i18n.dic['SUBTITLE_DEFAULT'], icon='icon.png')
 	else:
-		wf.add_item(title=i18n.dic['ERR_TYPE_TITLE'], subtitle=i18n.dic['ERR_TYPE_SUBTITLE'], icon='icon.png')
+		wf.add_item(title=i18n.dic['TITLE_TIP'], subtitle=i18n.dic['SUBTITLE_TIP'], icon='icon.png')
 
 	wf.send_feedback()
 
@@ -54,6 +54,9 @@ def main(wf):
 			num = wf.args[1]
 			money = float(num)
 		exchange(command, money)
+	else:
+		wf.add_item(title=i18n.dic['TITLE_TIP'], subtitle=i18n.dic['SUBTITLE_TIP'])
+		wf.send_feedback()
 
 if __name__ == '__main__':
 	wf = Workflow3()
