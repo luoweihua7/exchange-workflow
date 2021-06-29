@@ -31,6 +31,3 @@ try:
   dic = _dics[local]
 except KeyError as e:
   dic = _dics['en_US']
-
-
-  
