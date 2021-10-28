@@ -16,7 +16,7 @@ import i18n
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-units = ['', 'cny', 'usd', 'hkd', 'eur', 'jpy']
+units = ['', 'cny', 'usd', 'hkd', 'eur', 'jpy', 'krw', 'brl', 'try']
 
 def currency(type, money = 1):
   forex = (",fx_s%s" % type).join(units)[1:]
@@ -34,13 +34,15 @@ def currency(type, money = 1):
     wf.logger.info("translate word: %s ==> %s, %s" % (tuple[0].upper(), len(arr), tuple))
     if len(arr) > 9:
       currency_type = tuple[0].upper()
-      icon = 'icons/%s.png' % currency_type
-      cur =  float(arr[8]) * money
-      rate = int(cur) if int(cur) == cur else cur
-      title = "%s -> %s :  %s" % (type.upper(), currency_type, str(rate))
-      subtitle = i18n.dic['SUCC_SUBTITLE'] + str(rate)
-      arg = currency_type
-      wf.add_item(title=title, subtitle=subtitle, icon=icon, arg=arg, valid=True)
+
+      if type.upper() != currency_type:
+        icon = 'icons/%s.png' % currency_type
+        cur =  float(arr[8]) * money
+        rate = int(cur) if int(cur) == cur else cur
+        title = "%s -> %s :  %s" % (type.upper(), currency_type, str(rate))
+        subtitle = i18n.dic['SUCC_SUBTITLE'] + str(rate)
+        arg = currency_type
+        wf.add_item(title=title, subtitle=subtitle, icon=icon, arg=arg, valid=True)
 
   wf.send_feedback()
 
